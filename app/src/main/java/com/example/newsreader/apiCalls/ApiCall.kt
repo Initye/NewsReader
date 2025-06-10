@@ -46,5 +46,12 @@ fun run() {
         val firstArticleTitle = newsResponse.articles.firstOrNull()?.title ?: "No data"
 
         println(firstArticleTitle)
+
+        newsResponse.articles.take(5).forEach { article ->
+            //Elvis operator does not work on (val title = article.title ?:) since it checks the values not the empty strings that's why isNotBlank is used
+            val title = article.title.takeIf { it.isNotBlank() } ?: "Unknown title"
+            val author = article.author.takeIf { it.isNotBlank() } ?: "Unknown author"
+            println("Title of article: ${title} \nAuthor of article: ${author}")
+        }
     }
 }

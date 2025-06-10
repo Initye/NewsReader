@@ -24,7 +24,7 @@ data class NewsResponse (
     val totalResults: Int,
     val articles: List<Article>
 )
-//serialization/deserialization library
+//Gson - serialization/deserialization library
 var gson = Gson()
 
 fun main() {

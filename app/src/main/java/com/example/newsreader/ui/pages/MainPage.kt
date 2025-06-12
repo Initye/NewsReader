@@ -2,9 +2,12 @@ package com.example.newsreader.ui.pages
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,6 +30,10 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.newsreader.ui.elements.Header
+import com.example.newsreader.ui.elements.HeadlineElement
+import com.example.newsreader.ui.elements.LatestHeadlineElement
+import com.example.newsreader.ui.elements.NewsElement
+
 import com.example.newsreader.ui.theme.Headlines
 import com.example.newsreader.ui.theme.geistFontFamily
 
@@ -40,7 +47,20 @@ fun MainPage(modifier: Modifier = Modifier) {
             .background(Color.White)
             .safeContentPadding(),
     ) {
-        Header()
+        Column {
+            Header()
+            Box (
+                modifier = modifier
+                    .padding(start = 20.dp, top = 20.dp, end = 20.dp)
+            ) {
+                Column {
+                    LatestHeadlineElement()
+                    Spacer(modifier = Modifier.weight(1f))
+                    HeadlineElement()
+                    NewsElement()
+                }
+            }
+        }
     }
 }
 

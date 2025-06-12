@@ -12,6 +12,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
 import androidx.compose.runtime.State
+import java.util.Date
 
 class ApiViewModel : ViewModel() {
     init {
@@ -30,13 +31,13 @@ class ApiViewModel : ViewModel() {
         val author: String,
         val title: String,
         val description: String,
+        val publishedAt: String,
     )
     data class NewsResponse (
         val status: String,
         val totalResults: Int,
         val articles: List<Article>
     )
-
     //Gson - serialization/deserialization library
     var gson = Gson()
 

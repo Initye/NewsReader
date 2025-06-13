@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,7 +32,7 @@ import com.example.newsreader.ui.theme.getGeistFontFamily
 @Composable
 fun HeadlineElement(modifier: Modifier = Modifier) {
     Text(
-        text = "Headlines",
+        text = stringResource(R.string.headline),
         color = Headlines,
         fontSize = 36.sp,
         fontWeight = FontWeight.Bold
@@ -62,7 +63,7 @@ fun NewsElement(modifier: Modifier = Modifier) {
             ) {
                 Row {
                     AsyncImage(
-                        model = article.urlToImage ?: R.drawable.noimage_error,
+                        model = article.urlToImage ?: R.drawable.block_error,
                         contentDescription = "",
                         contentScale = ContentScale.Crop,
                         modifier = modifier
@@ -71,20 +72,21 @@ fun NewsElement(modifier: Modifier = Modifier) {
                     Column(
                         modifier = modifier
                             .fillMaxWidth()
-                            .padding(start = 10.dp, top = 10.dp, end = 10.dp, bottom = 5.dp)
+                            .padding(start = 8.dp, top = 8.dp, end = 8.dp, bottom = 4.dp)
                     ) {
                         Text(
-                            text = article.title ?:"",
+                            text = article.title ?: stringResource(R.string.no_data),
                             color = Color.Black,
                             maxLines = 3,
                             overflow = TextOverflow.Ellipsis, //Three dots
-                            fontSize = 14.sp,
+                            lineHeight = 16.sp,
+                            fontSize = 16.sp,
                             fontFamily = getGeistFontFamily(), fontWeight = FontWeight.SemiBold
                         )
                         Spacer(Modifier.weight(1f))
                         Row {
                             Text(
-                                text = date ?: "No data",
+                                text = date ?: stringResource(R.string.no_data),
                                 color = Color.Black,
                                 fontSize = 8.sp,
                                 fontFamily = getGeistFontFamily(), fontWeight = FontWeight.Normal
@@ -95,7 +97,7 @@ fun NewsElement(modifier: Modifier = Modifier) {
                                 fontSize = 8.sp
                             )
                             Text(
-                                text = article.author ?: "No data",
+                                text = article.author ?: stringResource(R.string.no_data),
                                 color = Color.Black,
                                 fontSize = 8.sp,
                                 fontFamily = getGeistFontFamily(), fontWeight = FontWeight.Normal

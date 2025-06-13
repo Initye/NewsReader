@@ -45,7 +45,7 @@ import com.example.newsreader.R
 @Composable
 fun LatestHeadlineElement(modifier: Modifier = Modifier) {
     Text(
-        text = "Latest",
+        text = stringResource(R.string.latest),
         color = Headlines,
         fontSize = 36.sp,
         fontWeight = FontWeight.Bold
@@ -74,7 +74,7 @@ fun LatestElement(modifier: Modifier = Modifier) {
                     .fillMaxSize()
             )
             Text(
-                text = articles?.title ?: stringResource(R.string.lorem),
+                text = articles?.title ?: "",
                 color = Color.White,
                 style = TextStyle(
                     shadow = Shadow(

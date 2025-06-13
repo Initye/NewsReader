@@ -1,6 +1,7 @@
 package com.example.newsreader.ui.elements
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -15,12 +16,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import com.example.newsreader.R
 import com.example.newsreader.ui.ApiViewModel
@@ -31,7 +34,7 @@ import com.example.newsreader.ui.theme.getGeistFontFamily
 @Composable
 fun HeadlineElement(modifier: Modifier = Modifier) {
     Text(
-        text = "Headlines",
+        text = stringResource(R.string.headline),
         color = Headlines,
         fontSize = 36.sp,
         fontWeight = FontWeight.Bold
@@ -39,9 +42,7 @@ fun HeadlineElement(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun NewsElement(modifier: Modifier = Modifier) {
-    //Getting data from apiCall
-    val viewModel: ApiViewModel = viewModel()
+fun NewsElement(navController: NavController, viewModel: ApiViewModel, modifier: Modifier = Modifier ) {
     val articles by viewModel.articles
 
     LazyColumn(
@@ -59,10 +60,14 @@ fun NewsElement(modifier: Modifier = Modifier) {
                     .fillMaxWidth()
                     .height(132.dp)
                     .padding(bottom = 8.dp)
+                    .clickable {
+                        viewModel.selectArticle(article)
+                        navController.navigate("articleElement")
+                    }
             ) {
                 Row {
                     AsyncImage(
-                        model = article.urlToImage ?: R.drawable.noimage_error,
+                        model = article.urlToImage ?: R.drawable.block_error,
                         contentDescription = "",
                         contentScale = ContentScale.Crop,
                         modifier = modifier
@@ -71,20 +76,21 @@ fun NewsElement(modifier: Modifier = Modifier) {
                     Column(
                         modifier = modifier
                             .fillMaxWidth()
-                            .padding(start = 10.dp, top = 10.dp, end = 10.dp, bottom = 5.dp)
+                            .padding(start = 8.dp, top = 8.dp, end = 8.dp, bottom = 4.dp)
                     ) {
                         Text(
-                            text = article.title ?:"",
+                            text = article.title ?: stringResource(R.string.no_data),
                             color = Color.Black,
                             maxLines = 3,
                             overflow = TextOverflow.Ellipsis, //Three dots
-                            fontSize = 14.sp,
+                            lineHeight = 16.sp,
+                            fontSize = 16.sp,
                             fontFamily = getGeistFontFamily(), fontWeight = FontWeight.SemiBold
                         )
                         Spacer(Modifier.weight(1f))
                         Row {
                             Text(
-                                text = date ?: "No data",
+                                text = date ?: stringResource(R.string.no_data),
                                 color = Color.Black,
                                 fontSize = 8.sp,
                                 fontFamily = getGeistFontFamily(), fontWeight = FontWeight.Normal
@@ -95,7 +101,7 @@ fun NewsElement(modifier: Modifier = Modifier) {
                                 fontSize = 8.sp
                             )
                             Text(
-                                text = article.author ?: "No data",
+                                text = article.author ?: stringResource(R.string.no_data),
                                 color = Color.Black,
                                 fontSize = 8.sp,
                                 fontFamily = getGeistFontFamily(), fontWeight = FontWeight.Normal
@@ -111,6 +117,6 @@ fun NewsElement(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 fun NewsElementPreview() {
-    NewsElement(
+    NewsElement( navController = TODO(), viewModel = viewModel()
     )
 }

@@ -1,5 +1,9 @@
 package com.example.newsreader.ui
 
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
+import android.util.Log.e
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,14 +16,38 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
 import androidx.compose.runtime.State
+import androidx.lifecycle.viewmodel.compose.viewModel
 import java.util.Date
 
 class ApiViewModel : ViewModel() {
     init {
+       viewModelScope.launch{
+           try {
+               val result = ApiCallList()
+               _articles.value = result
+               _latestArticle.value = result.firstOrNull()
+               _networkError.value = false
+           } catch (e: IOException) {
+               _networkError.value = true
+               println("Network error is occurring")
+               println("Network error: ${e.message}")
+           }
+       }
+    }
+    private val _networkError = mutableStateOf(false)
+    val networkError: State<Boolean> = _networkError
+
+    fun retryLoadingArticle() {
         viewModelScope.launch{
-            val result = ApiCallList()
-            _articles.value = result
-            _latestArticle.value = result.firstOrNull()
+            try {
+                val result = ApiCallList()
+                _articles.value = result
+                _latestArticle.value = result.firstOrNull()
+                _networkError.value = false
+            } catch (e: IOException) {
+                _networkError.value = true
+                println("Network error: ${e.message}")
+            }
         }
     }
 
@@ -73,4 +101,13 @@ class ApiViewModel : ViewModel() {
             }
         }
     }
+
+    //Selecting article
+    private val _selectedArticle = mutableStateOf<Article?>(null)
+    val selectedArticle: State<Article?> = _selectedArticle
+
+    fun selectArticle(article: Article) {
+        _selectedArticle.value = article
+    }
+
 }

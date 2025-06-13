@@ -19,19 +19,21 @@ class ApiViewModel : ViewModel() {
         viewModelScope.launch{
             val result = ApiCallList()
             _articles.value = result
+            _latestArticle.value = result.firstOrNull()
         }
     }
 
     data class Source (
         val id: String?,
-        val name: String,
+        val name: String?,
     )
     data class Article (
         val source: Source,
-        val author: String,
-        val title: String,
-        val description: String,
-        val publishedAt: String,
+        val author: String?,
+        val title: String?,
+        val description: String?,
+        val publishedAt: String?,
+        val urlToImage: String?,
     )
     data class NewsResponse (
         val status: String,
@@ -41,8 +43,12 @@ class ApiViewModel : ViewModel() {
     //Gson - serialization/deserialization library
     var gson = Gson()
 
+    //To call
     private val _articles = mutableStateOf<List<Article>>(emptyList())
     val articles: State<List<Article>> = _articles
+    private val _latestArticle = mutableStateOf<Article?>(null)
+    val latestArticle: State<Article?> = _latestArticle
+
     suspend fun ApiCallList(): List<Article> {
         val client = OkHttpClient()
 

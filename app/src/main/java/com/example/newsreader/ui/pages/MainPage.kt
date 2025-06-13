@@ -31,6 +31,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.newsreader.ui.elements.Header
 import com.example.newsreader.ui.elements.HeadlineElement
+import com.example.newsreader.ui.elements.LatestElement
 import com.example.newsreader.ui.elements.LatestHeadlineElement
 import com.example.newsreader.ui.elements.NewsElement
 
@@ -51,10 +52,11 @@ fun MainPage(modifier: Modifier = Modifier) {
             Header()
             Box (
                 modifier = modifier
-                    .padding(start = 20.dp, top = 20.dp, end = 20.dp)
+                    .padding(start = 16.dp, top = 20.dp, end = 16.dp)
             ) {
                 Column {
                     LatestHeadlineElement()
+                    LatestElement()
                     Spacer(modifier = Modifier.weight(1f))
                     HeadlineElement()
                     NewsElement()

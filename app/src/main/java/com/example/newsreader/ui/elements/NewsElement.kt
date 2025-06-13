@@ -12,6 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -19,6 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil3.compose.AsyncImage
 import com.example.newsreader.R
 import com.example.newsreader.ui.ApiViewModel
 import com.example.newsreader.ui.theme.Headlines
@@ -47,10 +50,10 @@ fun NewsElement(modifier: Modifier = Modifier) {
             .padding(8.dp)
     ) {
         items(articles) { article ->
-            val date = article.publishedAt.substringBefore("T")
+            val date = article.publishedAt?.substringBefore("T")
             Card(
                 colors = CardDefaults.cardColors(
-                    containerColor = Color.Gray
+                    containerColor = colorResource(R.color.cardBackground)
                 ),
                 modifier = modifier
                     .fillMaxWidth()
@@ -58,9 +61,12 @@ fun NewsElement(modifier: Modifier = Modifier) {
                     .padding(bottom = 8.dp)
             ) {
                 Row {
-                    Image(
-                        painter = painterResource(id = R.drawable.s1e13_yin_profile),
-                        contentDescription = ""
+                    AsyncImage(
+                        model = article.urlToImage ?: R.drawable.noimage_error,
+                        contentDescription = "",
+                        contentScale = ContentScale.Crop,
+                        modifier = modifier
+                            .size(130.dp)
                     )
                     Column(
                         modifier = modifier
@@ -68,7 +74,7 @@ fun NewsElement(modifier: Modifier = Modifier) {
                             .padding(start = 10.dp, top = 10.dp, end = 10.dp, bottom = 5.dp)
                     ) {
                         Text(
-                            text = article.title,
+                            text = article.title ?:"",
                             color = Color.Black,
                             maxLines = 3,
                             overflow = TextOverflow.Ellipsis, //Three dots
@@ -78,12 +84,19 @@ fun NewsElement(modifier: Modifier = Modifier) {
                         Spacer(Modifier.weight(1f))
                         Row {
                             Text(
-                                text = "${date} • ",
+                                text = date ?: "No data",
+                                color = Color.Black,
                                 fontSize = 8.sp,
                                 fontFamily = getGeistFontFamily(), fontWeight = FontWeight.Normal
                             )
+                            Text (
+                                text = " • ",
+                                color = Color.Black,
+                                fontSize = 8.sp
+                            )
                             Text(
-                                text = article.author,
+                                text = article.author ?: "No data",
+                                color = Color.Black,
                                 fontSize = 8.sp,
                                 fontFamily = getGeistFontFamily(), fontWeight = FontWeight.Normal
                             )
@@ -93,8 +106,6 @@ fun NewsElement(modifier: Modifier = Modifier) {
             }
         }
     }
-
-
 }
 
 @Preview

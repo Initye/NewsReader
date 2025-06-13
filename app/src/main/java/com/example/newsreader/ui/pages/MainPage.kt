@@ -41,6 +41,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.example.newsreader.ui.ApiViewModel
 import com.example.newsreader.ui.elements.Header
 import com.example.newsreader.ui.elements.HeadlineElement
@@ -55,10 +56,7 @@ import com.example.newsreader.ui.theme.getGeistFontFamily
 
 
 @Composable
-fun MainPage(modifier: Modifier = Modifier) {
-    //Getting data from apiCall
-    val viewModel: ApiViewModel = viewModel()
-
+fun MainPage(navController: NavController, viewModel: ApiViewModel, modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -74,10 +72,10 @@ fun MainPage(modifier: Modifier = Modifier) {
                 ) {
                     Column {
                         LatestHeadlineElement()
-                        LatestElement()
+                        LatestElement(navController, viewModel = viewModel)
                         Spacer(modifier = Modifier.weight(1f))
                         HeadlineElement()
-                        NewsElement()
+                        NewsElement(navController, viewModel = viewModel)
                     }
                 }
             } else {
@@ -91,5 +89,5 @@ fun MainPage(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 fun PagePreview() {
-    MainPage()
+    MainPage(navController = TODO(), viewModel = viewModel())
 }

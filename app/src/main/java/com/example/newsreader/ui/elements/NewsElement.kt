@@ -1,6 +1,7 @@
 package com.example.newsreader.ui.elements
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -22,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import com.example.newsreader.R
 import com.example.newsreader.ui.ApiViewModel
@@ -40,9 +42,7 @@ fun HeadlineElement(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun NewsElement(modifier: Modifier = Modifier) {
-    //Getting data from apiCall
-    val viewModel: ApiViewModel = viewModel()
+fun NewsElement(navController: NavController, viewModel: ApiViewModel, modifier: Modifier = Modifier ) {
     val articles by viewModel.articles
 
     LazyColumn(
@@ -60,6 +60,10 @@ fun NewsElement(modifier: Modifier = Modifier) {
                     .fillMaxWidth()
                     .height(132.dp)
                     .padding(bottom = 8.dp)
+                    .clickable {
+                        viewModel.selectArticle(article)
+                        navController.navigate("articleElement")
+                    }
             ) {
                 Row {
                     AsyncImage(
@@ -113,6 +117,6 @@ fun NewsElement(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 fun NewsElementPreview() {
-    NewsElement(
+    NewsElement( navController = TODO(), viewModel = viewModel()
     )
 }

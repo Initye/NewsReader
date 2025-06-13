@@ -101,4 +101,13 @@ class ApiViewModel : ViewModel() {
             }
         }
     }
+
+    //Selecting article
+    private val _selectedArticle = mutableStateOf<Article?>(null)
+    val selectedArticle: State<Article?> = _selectedArticle
+
+    fun selectArticle(article: Article) {
+        _selectedArticle.value = article
+    }
+
 }

@@ -70,7 +70,11 @@ dependencies {
     implementation("io.coil-kt.coil3:coil-network-okhttp:3.2.0")
     //Gson
     implementation ("com.google.code.gson:gson:2.13.1")
+
     val lifecycle_version = "2.8.3"
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version")
+    //Navigation
+    val nav_version = "2.9.0"
+    implementation("androidx.navigation:navigation-compose:$nav_version")
 }

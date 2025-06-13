@@ -1,5 +1,6 @@
 package com.example.newsreader.ui.elements
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -36,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import com.example.newsreader.ui.ApiViewModel
 import com.example.newsreader.ui.theme.Headlines
@@ -53,9 +55,9 @@ fun LatestHeadlineElement(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun LatestElement(modifier: Modifier = Modifier) {
-    val viewModel: ApiViewModel = viewModel()
+fun LatestElement(navController: NavController, viewModel: ApiViewModel, modifier: Modifier = Modifier) {
     val articles by viewModel.latestArticle
+
     Card(
         colors = CardDefaults.cardColors(
             containerColor = colorResource(R.color.cardBackground)
@@ -64,6 +66,13 @@ fun LatestElement(modifier: Modifier = Modifier) {
             .fillMaxWidth()
             .height(132.dp)
             .padding(bottom = 8.dp)
+            .clickable {
+                articles?.let { article ->
+                    viewModel.selectArticle(article)
+                    navController.navigate("articleElement")
+                }
+
+            }
     ) {
         Box {
             AsyncImage(
@@ -105,5 +114,5 @@ fun LatestElementPreview() {
 @Preview
 @Composable
 fun LatestPreview() {
-    LatestElement()
+    LatestElement(viewModel = viewModel(), navController = TODO())
 }

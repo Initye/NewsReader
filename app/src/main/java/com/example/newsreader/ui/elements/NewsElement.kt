@@ -103,6 +103,8 @@ fun NewsElement(navController: NavController, viewModel: ApiViewModel, modifier:
                             Text(
                                 text = article.author ?: stringResource(R.string.no_data),
                                 color = Color.Black,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis, //Three dots
                                 fontSize = 8.sp,
                                 fontFamily = getGeistFontFamily(), fontWeight = FontWeight.Normal
                             )

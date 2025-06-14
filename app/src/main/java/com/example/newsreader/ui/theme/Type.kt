@@ -43,6 +43,7 @@ val geistFontFamily = FontFamily(
     Font(R.font.geist_medium, FontWeight.Medium),
     Font(R.font.geist_semibold, FontWeight.SemiBold),
     Font(R.font.geist_bold, FontWeight.Bold),
+    Font(R.font.geist_thin, FontWeight.Thin),
 )
 @Composable
 fun getGeistFontFamily(): FontFamily {

@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">NewsReader</string>
-    <string name="no_data">No data</string>
     <string name="latest">Latest</string>
     <string name="headline">Headlines</string>
+    <string name="no_data">No data</string>
+    <string name="no_source">No source</string>
+    <string name="no_author">No author</string>
+    <string name="no_title">No title</string>
+    <string name="no_description">No description</string>
+    <string name="no_content">No content</string>
 </resources>

@@ -1,6 +1,8 @@
 package com.example.newsreader.ui.pages
 
+import android.R.attr.navigationIcon
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,11 +14,16 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -26,6 +33,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import com.example.newsreader.R
 import com.example.newsreader.ui.ApiViewModel
@@ -33,7 +41,7 @@ import com.example.newsreader.ui.elements.Header
 import com.example.newsreader.ui.theme.getGeistFontFamily
 
 @Composable
-fun ArticleDetail(viewModel: ApiViewModel, modifier: Modifier = Modifier  ) {
+fun ArticleDetail(navController: NavController, viewModel: ApiViewModel, modifier: Modifier = Modifier  ) {
     val selectedArticle by viewModel.selectedArticle
     val sourceAuthorTextStyle = TextStyle (
         color = Color.Black,
@@ -61,7 +69,18 @@ fun ArticleDetail(viewModel: ApiViewModel, modifier: Modifier = Modifier  ) {
 
             selectedArticle?.let { article ->
                 Column {
-                    Header()
+                    Box {
+                        Header()
+                            Icon( //This could be in IconButton (but it made header show shadow :))
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                tint = Color.Black,
+                                contentDescription = "Go back",
+                                modifier = modifier
+                                    .padding(8.dp)
+                                    .size(24.dp)
+                                    .clickable(onClick = { navController.popBackStack() })
+                            )
+                    }
                     AsyncImage(
                         model = article.urlToImage,
                         contentDescription = "",
@@ -109,5 +128,5 @@ fun ArticleDetail(viewModel: ApiViewModel, modifier: Modifier = Modifier  ) {
 @Composable
 @Preview
 fun ArticleDetailPreview() {
-    ArticleDetail(viewModel = viewModel())
+    ArticleDetail(viewModel = viewModel(), navController = TODO())
 }

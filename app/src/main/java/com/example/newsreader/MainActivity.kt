@@ -49,7 +49,7 @@ class MainActivity : ComponentActivity() {
                             MainPage(navController, sharedProfileViewModel)
                         }
                         composable("articleElement") {
-                            ArticleDetail(sharedProfileViewModel)
+                            ArticleDetail(navController, sharedProfileViewModel)
                         }
                     }
                 }

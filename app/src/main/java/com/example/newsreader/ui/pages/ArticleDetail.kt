@@ -38,12 +38,12 @@ fun ArticleDetail(viewModel: ApiViewModel, modifier: Modifier = Modifier  ) {
     val sourceAuthorTextStyle = TextStyle (
         color = Color.Black,
         fontSize = 12.sp,
-        fontFamily = getGeistFontFamily(), fontWeight = FontWeight.Normal
+        fontFamily = getGeistFontFamily(), fontWeight = FontWeight.Thin
     )
     val titleTextStyle = TextStyle (
         color = Color.Black,
         fontSize = 20.sp,
-        fontFamily = getGeistFontFamily(), fontWeight = FontWeight.Bold
+        fontFamily = getGeistFontFamily(), fontWeight = FontWeight.Bold,
     )
     val descriptionTextStyle = TextStyle (
         color = Color.Black,
@@ -52,15 +52,16 @@ fun ArticleDetail(viewModel: ApiViewModel, modifier: Modifier = Modifier  ) {
         fontFamily = getGeistFontFamily(), fontWeight = FontWeight.Normal
     )
     Column {
-        Header()
         Box(
             modifier = modifier
                 .fillMaxSize()
                 .background(Color.White)
                 .safeContentPadding(),
         ) {
+
             selectedArticle?.let { article ->
                 Column {
+                    Header()
                     AsyncImage(
                         model = article.urlToImage,
                         contentDescription = "",
@@ -87,12 +88,14 @@ fun ArticleDetail(viewModel: ApiViewModel, modifier: Modifier = Modifier  ) {
                         }
                         Text(
                             text = article.title ?: stringResource(id = R.string.no_title),
-                            style = titleTextStyle
+                            style = titleTextStyle,
+                            modifier = modifier.padding(top = 8.dp)
                         )
                         Text(
                             text = article.content
                                 ?: stringResource(id = R.string.no_content),
-                            style = descriptionTextStyle
+                            style = descriptionTextStyle,
+                            modifier = modifier.padding(top = 4.dp)
                         )
                     }
                 }

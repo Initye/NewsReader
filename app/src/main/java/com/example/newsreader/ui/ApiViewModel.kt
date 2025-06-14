@@ -62,10 +62,12 @@ class ApiViewModel : ViewModel() {
         val description: String?,
         val publishedAt: String?,
         val urlToImage: String?,
+        val content: String?
     )
     data class NewsResponse (
         val status: String,
         val totalResults: Int,
+        //Creates list from Article data class
         val articles: List<Article>
     )
     //Gson - serialization/deserialization library

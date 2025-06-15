@@ -49,6 +49,7 @@ import com.example.newsreader.ui.elements.LatestElement
 import com.example.newsreader.ui.elements.LatestHeadlineElement
 import com.example.newsreader.ui.elements.NewsElement
 import com.example.newsreader.R
+import com.example.newsreader.ui.elements.NavDrawer
 import com.example.newsreader.ui.elements.NoWifi
 import com.example.newsreader.ui.theme.Headlines
 import com.example.newsreader.ui.theme.geistFontFamily
@@ -64,7 +65,10 @@ fun MainPage(navController: NavController, viewModel: ApiViewModel, modifier: Mo
             .safeContentPadding(),
     ) {
         Column {
-            Header()
+            Box {
+                Header(navController)
+                NavDrawer(navController)
+            }
             if(viewModel.networkError.value == false) {
                 Box (
                     modifier = modifier
@@ -76,6 +80,7 @@ fun MainPage(navController: NavController, viewModel: ApiViewModel, modifier: Mo
                         Spacer(modifier = Modifier.weight(1f))
                         HeadlineElement()
                         NewsElement(navController, viewModel = viewModel)
+
                     }
                 }
             } else {

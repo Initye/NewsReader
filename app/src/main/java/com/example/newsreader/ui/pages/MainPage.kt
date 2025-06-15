@@ -16,6 +16,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -58,6 +59,9 @@ import com.example.newsreader.ui.theme.getGeistFontFamily
 
 @Composable
 fun MainPage(navController: NavController, viewModel: ApiViewModel, modifier: Modifier = Modifier) {
+    LaunchedEffect(Unit) {
+        viewModel.onEverything()
+    }
     NavDrawer(navController) { onMenuClick ->
         Box(
             modifier = modifier

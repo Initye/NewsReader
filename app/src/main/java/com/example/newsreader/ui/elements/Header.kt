@@ -3,6 +3,10 @@ package com.example.newsreader.ui.elements
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,7 +23,7 @@ import com.example.newsreader.ui.theme.Headlines
 import com.example.newsreader.ui.theme.getGeistFontFamily
 
 @Composable
-fun Header(modifier: Modifier = Modifier) {
+fun Header(modifier: Modifier = Modifier, onMenuClick: () -> Unit) {
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -41,13 +45,25 @@ fun Header(modifier: Modifier = Modifier) {
             },
         contentAlignment = Alignment.Center
     ) {
-        Text(
-            text = "NewsReader",
-            fontFamily = getGeistFontFamily(),
-            fontWeight = FontWeight.Bold,
-            color = Headlines,
-            fontSize = 34.sp
-        )
+        Box(
+            modifier = modifier
+                .fillMaxWidth()
+        ) {
+            IconButton(
+                onClick = onMenuClick,
+                modifier = modifier.align(Alignment.CenterStart)
+            ) {
+                Icon(Icons.Default.Menu, contentDescription = "Menu")
+            }
+            Text(
+                text = "NewsReader",
+                fontFamily = getGeistFontFamily(),
+                fontWeight = FontWeight.Bold,
+                color = Headlines,
+                fontSize = 34.sp,modifier = Modifier.align(Alignment.Center)
+
+            )
+        }
     }
 
 

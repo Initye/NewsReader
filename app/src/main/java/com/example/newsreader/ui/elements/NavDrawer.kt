@@ -3,6 +3,7 @@ package com.example.newsreader.ui.elements
 import android.R
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
@@ -35,9 +36,19 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun NavDrawer(navController: NavController, modifier: Modifier = Modifier) {
+fun NavDrawer(navController: NavController, modifier: Modifier = Modifier, content: @Composable (onMenuClick: () -> Unit) -> Unit) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
+    val menuClickHandler: () -> Unit = {
+        scope.launch {
+            if (drawerState.isClosed) {
+                drawerState.open()
+            } else {
+                drawerState.close()
+            }
+        }
+    }
+
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
@@ -45,8 +56,13 @@ fun NavDrawer(navController: NavController, modifier: Modifier = Modifier) {
                 drawerContainerColor = Color.White,
                 modifier = modifier
                     .width(200.dp),
-                ) {
-                Text("News Categories", modifier = Modifier.padding(16.dp), style = MaterialTheme.typography.titleLarge, color = Color.Black)
+            ) {
+                Text(
+                    "News Categories",
+                    modifier = Modifier.padding(16.dp),
+                    style = MaterialTheme.typography.titleLarge,
+                    color = Color.Black
+                )
                 NavigationDrawerItem(
                     colors = NavigationDrawerItemDefaults.colors(
                         unselectedContainerColor = Color.White
@@ -54,23 +70,14 @@ fun NavDrawer(navController: NavController, modifier: Modifier = Modifier) {
                     label = { Text("Bitcoin") },
                     selected = false,
                     onClick = { navController.navigate("bitcoinNews") }
-                ) }
-                        },
-        ) {
-                IconButton(onClick = {
-                    scope.launch {
-                        if (drawerState.isClosed) {
-                            drawerState.open()
-                        } else {
-                            drawerState.close()
-                        }
-                    }
-                }) {
-                    Icon(Icons.Default.Menu, contentDescription = "Menu")
-                }
+                )
             }
-
+        }
+        ) {
+        content(menuClickHandler)
     }
+}
+
 
 
 @Preview
@@ -78,7 +85,8 @@ fun NavDrawer(navController: NavController, modifier: Modifier = Modifier) {
 fun NavDrawerPreview() {
     NavDrawer(
         navController = TODO(),
-        modifier = TODO()
+        modifier = TODO(),
+        content = TODO()
     )
 }
 

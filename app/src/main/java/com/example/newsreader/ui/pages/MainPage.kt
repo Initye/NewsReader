@@ -58,36 +58,37 @@ import com.example.newsreader.ui.theme.getGeistFontFamily
 
 @Composable
 fun MainPage(navController: NavController, viewModel: ApiViewModel, modifier: Modifier = Modifier) {
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .background(Color.White)
-            .safeContentPadding(),
-    ) {
-        Column {
-            Box {
-                Header(navController)
-                NavDrawer(navController)
-            }
-            if(viewModel.networkError.value == false) {
-                Box (
-                    modifier = modifier
-                        .padding(start = 16.dp, top = 20.dp, end = 16.dp)
-                ) {
-                    Column {
-                        LatestHeadlineElement()
-                        LatestElement(navController, viewModel = viewModel)
-                        Spacer(modifier = Modifier.weight(1f))
-                        HeadlineElement()
-                        NewsElement(navController, viewModel = viewModel)
-
+    NavDrawer(navController) { onMenuClick ->
+        Box(
+            modifier = modifier
+                .fillMaxSize()
+                .background(Color.White)
+                .safeContentPadding(), //WindowInsets.SystemBars
+        ) {
+            Column {
+                Header(
+                    onMenuClick = onMenuClick
+                )
+                if(viewModel.networkError.value == false) {
+                    Box (
+                        modifier = modifier
+                            .padding(start = 16.dp, top = 20.dp, end = 16.dp)
+                    ) {
+                        Column {
+                            LatestHeadlineElement()
+                            LatestElement(navController, viewModel = viewModel)
+                            Spacer(modifier = Modifier.weight(1f))
+                            HeadlineElement()
+                            NewsElement(navController, viewModel = viewModel)
+                        }
                     }
+                } else {
+                    NoWifi()
                 }
-            } else {
-                NoWifi()
             }
         }
     }
+
 }
 
 

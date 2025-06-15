@@ -79,11 +79,18 @@ class ApiViewModel : ViewModel() {
     private val _latestArticle = mutableStateOf<Article?>(null)
     val latestArticle: State<Article?> = _latestArticle
 
-    suspend fun ApiCallList(): List<Article> {
+    suspend fun ApiCallList(
+        useEverything: Boolean = false,
+        query: String? = null
+    ): List<Article> {
         val client = OkHttpClient()
-
+        val baseUrl = if(useEverything) {
+            "https://newsapi.org/v2/everything?q=${query}"
+        } else {
+            "https://newsapi.org/v2/top-headlines?country=us"
+        }
         val request = Request.Builder()
-            .url("https://newsapi.org/v2/top-headlines?country=us&apiKey=${BuildConfig.API_KEY}")
+            .url("$baseUrl&apiKey=${BuildConfig.API_KEY}")
             .build()
 
         return withContext(Dispatchers.IO) {
@@ -100,6 +107,32 @@ class ApiViewModel : ViewModel() {
                     list.add(article)
                 }
                 list //returned
+            }
+        }
+    }
+
+    //Categories
+    fun onEverything() {
+        viewModelScope.launch{
+            try {
+                val result = ApiCallList(useEverything = false)
+                _articles.value = result
+                _latestArticle.value = result.firstOrNull()
+                _networkError.value = false
+            } catch (e: IOException) {
+                _networkError.value = true
+            }
+        }
+    }
+    fun onBitcoin() {
+        viewModelScope.launch{
+            try {
+                val result = ApiCallList(useEverything = true, query = "bitcoin")
+                _articles.value = result
+                _latestArticle.value = result.firstOrNull()
+                _networkError.value = false
+            } catch (e: IOException) {
+                _networkError.value = true
             }
         }
     }

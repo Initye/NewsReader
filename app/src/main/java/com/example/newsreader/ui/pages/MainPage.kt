@@ -16,6 +16,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -49,6 +50,7 @@ import com.example.newsreader.ui.elements.LatestElement
 import com.example.newsreader.ui.elements.LatestHeadlineElement
 import com.example.newsreader.ui.elements.NewsElement
 import com.example.newsreader.R
+import com.example.newsreader.ui.elements.NavDrawer
 import com.example.newsreader.ui.elements.NoWifi
 import com.example.newsreader.ui.theme.Headlines
 import com.example.newsreader.ui.theme.geistFontFamily
@@ -57,29 +59,36 @@ import com.example.newsreader.ui.theme.getGeistFontFamily
 
 @Composable
 fun MainPage(navController: NavController, viewModel: ApiViewModel, modifier: Modifier = Modifier) {
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .background(Color.White)
-            .safeContentPadding(),
-    ) {
-        Column {
-            Header()
-            if(viewModel.networkError.value == false) {
-                Box (
-                    modifier = modifier
-                        .padding(start = 16.dp, top = 20.dp, end = 16.dp)
-                ) {
-                    Column {
-                        LatestHeadlineElement()
-                        LatestElement(navController, viewModel = viewModel)
-                        Spacer(modifier = Modifier.weight(1f))
-                        HeadlineElement()
-                        NewsElement(navController, viewModel = viewModel)
+    LaunchedEffect(Unit) {
+        viewModel.onEverything()
+    }
+    NavDrawer(navController) { onMenuClick ->
+        Box(
+            modifier = modifier
+                .fillMaxSize()
+                .background(Color.White)
+                .safeContentPadding(), //WindowInsets.SystemBars
+        ) {
+            Column {
+                Header(
+                    onMenuClick = onMenuClick
+                )
+                if(viewModel.networkError.value == false) {
+                    Box (
+                        modifier = modifier
+                            .padding(start = 16.dp, top = 20.dp, end = 16.dp)
+                    ) {
+                        Column {
+                            LatestHeadlineElement()
+                            LatestElement(navController, viewModel = viewModel)
+                            Spacer(modifier = Modifier.weight(1f))
+                            HeadlineElement()
+                            NewsElement(navController, viewModel = viewModel)
+                        }
                     }
+                } else {
+                    NoWifi()
                 }
-            } else {
-                NoWifi()
             }
         }
     }

@@ -70,7 +70,10 @@ fun ArticleDetail(navController: NavController, viewModel: ApiViewModel, modifie
             selectedArticle?.let { article ->
                 Column {
                     Box {
-                        Header()
+                        Header(
+                            modifier = TODO(),
+                            onMenuClick = TODO()
+                        )
                             Icon( //This could be in IconButton (but it made header show shadow :))
                                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                                 tint = Color.Black,

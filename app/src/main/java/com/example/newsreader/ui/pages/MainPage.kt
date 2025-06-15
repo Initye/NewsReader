@@ -88,7 +88,6 @@ fun MainPage(navController: NavController, viewModel: ApiViewModel, modifier: Mo
             }
         }
     }
-
 }
 
 

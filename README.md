@@ -32,6 +32,7 @@ Git installed (optional but recommended)
 2. Open the project in Android Studio  
    - Launch Android Studio  
    - Click "Open" and select the `NewsReader` folder you just cloned
+   - Add your actual API key to `local.properties` name it `API_KEY`
 
 3. Build the project  
    - Let Android Studio sync and build the project  

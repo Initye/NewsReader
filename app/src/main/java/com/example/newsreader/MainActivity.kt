@@ -25,7 +25,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.newsreader.ui.ApiViewModel
 import com.example.newsreader.ui.pages.ArticleDetail
-import com.example.newsreader.ui.pages.BitcoinNews
+import com.example.newsreader.ui.pages.CategoryNews
 import com.example.newsreader.ui.pages.MainPage
 
 
@@ -52,8 +52,8 @@ class MainActivity : ComponentActivity() {
                         composable("articleElement") {
                             ArticleDetail(navController, sharedProfileViewModel)
                         }
-                        composable("bitcoinNews") {
-                            BitcoinNews(navController, sharedProfileViewModel)
+                        composable("categoryNews") {
+                            CategoryNews(navController, sharedProfileViewModel)
                         }
                     }
                 }

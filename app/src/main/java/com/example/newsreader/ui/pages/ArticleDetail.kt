@@ -68,61 +68,49 @@ fun ArticleDetail(navController: NavController, viewModel: ApiViewModel, modifie
         ) {
 
             selectedArticle?.let { article ->
-                Column {
-                    Box {
+                    Column {
                         Header(
-                            modifier = TODO(),
-                            onMenuClick = TODO()
+                            onBackClick = { navController.popBackStack() }
                         )
-                            Icon( //This could be in IconButton (but it made header show shadow :))
-                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                tint = Color.Black,
-                                contentDescription = "Go back",
-                                modifier = modifier
-                                    .padding(8.dp)
-                                    .size(24.dp)
-                                    .clickable(onClick = { navController.popBackStack() })
-                            )
-                    }
-                    AsyncImage(
-                        model = article.urlToImage,
-                        contentDescription = "",
-                        contentScale = ContentScale.Fit,
-                        modifier = modifier
-                            .fillMaxWidth()
-                            .heightIn(max = 400.dp)
-                    )
-                    Column(
-                        modifier = modifier
-                            .padding(8.dp)
-                    ) {
-                        Row {
+                        AsyncImage(
+                            model = article.urlToImage,
+                            contentDescription = "",
+                            contentScale = ContentScale.Fit,
+                            modifier = modifier
+                                .fillMaxWidth()
+                                .heightIn(max = 400.dp)
+                        )
+                        Column(
+                            modifier = modifier
+                                .padding(8.dp)
+                        ) {
+                            Row {
+                                Text(
+                                    text = article.source.name
+                                        ?: stringResource(id = R.string.no_source),
+                                    style = sourceAuthorTextStyle
+                                )
+                                Spacer(modifier.weight(1f))
+                                Text(
+                                    text = "By ${article.author ?: stringResource(id = R.string.no_author)}",
+                                    style = sourceAuthorTextStyle
+                                )
+                            }
                             Text(
-                                text = article.source.name
-                                    ?: stringResource(id = R.string.no_source),
-                                style = sourceAuthorTextStyle
+                                text = article.title ?: stringResource(id = R.string.no_title),
+                                style = titleTextStyle,
+                                modifier = modifier.padding(top = 8.dp)
                             )
-                            Spacer(modifier.weight(1f))
                             Text(
-                                text = "By ${article.author ?: stringResource(id = R.string.no_author)}",
-                                style = sourceAuthorTextStyle
+                                text = article.content
+                                    ?: stringResource(id = R.string.no_content),
+                                style = descriptionTextStyle,
+                                modifier = modifier.padding(top = 4.dp)
                             )
                         }
-                        Text(
-                            text = article.title ?: stringResource(id = R.string.no_title),
-                            style = titleTextStyle,
-                            modifier = modifier.padding(top = 8.dp)
-                        )
-                        Text(
-                            text = article.content
-                                ?: stringResource(id = R.string.no_content),
-                            style = descriptionTextStyle,
-                            modifier = modifier.padding(top = 4.dp)
-                        )
                     }
-                }
-            } ?: run {
-                Text("No article selected")
+                } ?: run {
+                    Text("No article selected")
             }
         }
     }

@@ -4,6 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -23,7 +25,7 @@ import com.example.newsreader.ui.theme.Headlines
 import com.example.newsreader.ui.theme.getGeistFontFamily
 
 @Composable
-fun Header(modifier: Modifier = Modifier, onMenuClick: () -> Unit) {
+fun Header(modifier: Modifier = Modifier, onMenuClick: (() -> Unit)? = null, onBackClick: (() -> Unit)? = null) {
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -49,22 +51,28 @@ fun Header(modifier: Modifier = Modifier, onMenuClick: () -> Unit) {
             modifier = modifier
                 .fillMaxWidth()
         ) {
-            IconButton(
-                onClick = onMenuClick,
-                modifier = modifier.align(Alignment.CenterStart)
-            ) {
-                Icon(Icons.Default.Menu, contentDescription = "Menu")
+            if(onMenuClick != null) {
+                IconButton(
+                    onClick = onMenuClick,
+                    modifier = modifier.align(Alignment.CenterStart)
+                ) {
+                    Icon(Icons.Default.Menu, contentDescription = "Menu")
+                }
+                Text(
+                    text = "NewsReader",
+                    fontFamily = getGeistFontFamily(),
+                    fontWeight = FontWeight.Bold,
+                    color = Headlines,
+                    fontSize = 34.sp,modifier = Modifier.align(Alignment.Center)
+                )
+            } else if(onBackClick != null) {
+                IconButton(
+                    onClick = onBackClick,
+                    modifier = modifier.align(Alignment.CenterStart)
+                ) {
+                    Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back", tint = Color.Black)
+                }
             }
-            Text(
-                text = "NewsReader",
-                fontFamily = getGeistFontFamily(),
-                fontWeight = FontWeight.Bold,
-                color = Headlines,
-                fontSize = 34.sp,modifier = Modifier.align(Alignment.Center)
-
-            )
         }
     }
-
-
 }

@@ -62,7 +62,7 @@ fun MainPage(navController: NavController, viewModel: ApiViewModel, modifier: Mo
     LaunchedEffect(Unit) {
         viewModel.onEverything()
     }
-    NavDrawer(navController) { onMenuClick ->
+    NavDrawer(navController, viewModel = viewModel) { onMenuClick ->
         Box(
             modifier = modifier
                 .fillMaxSize()

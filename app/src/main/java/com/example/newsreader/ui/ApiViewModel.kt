@@ -121,18 +121,34 @@ class ApiViewModel : ViewModel() {
                 _networkError.value = false
             } catch (e: IOException) {
                 _networkError.value = true
+                println("Network error: ${e.message}")
             }
         }
     }
-    fun onBitcoin() {
+
+    //Selecting category
+    val categoriesList = arrayListOf<String>(
+        "Business", "Technology", "Health", "Science", "Politics",
+        "Sports", "Entertainment", "World", "Travel", "Crime", "Culture",
+        "Lifestyle", "Animals", "Holidays", "Bitcoin", "Amazon") //Adding new categories
+
+    private val _selectedCategory = mutableStateOf("")
+    val selectedCategory: State<String> = _selectedCategory
+
+    fun selectCategory(category: String) {
+        _selectedCategory.value = category
+        onCategory(category)
+    }
+    fun onCategory(category: String) {
         viewModelScope.launch{
             try {
-                val result = ApiCallList(useEverything = true, query = "bitcoin")
+                val result = ApiCallList(useEverything = true, query = category)
                 _articles.value = result
                 _latestArticle.value = result.firstOrNull()
                 _networkError.value = false
             } catch (e: IOException) {
                 _networkError.value = true
+                println("Network error: ${e.message}")
             }
         }
     }
@@ -144,5 +160,6 @@ class ApiViewModel : ViewModel() {
     fun selectArticle(article: Article) {
         _selectedArticle.value = article
     }
+
 
 }

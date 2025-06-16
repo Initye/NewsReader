@@ -54,6 +54,6 @@ Git installed (optional but recommended)
 This app uses a free public news API, which may have limitations on the number of requests and does not include full article content (descriptions or full text may be truncated or missing).
 
 # 👨‍💻 Developer
-Created with ❤️ by Initye ( me :) )
+Created by Initye ( me :) )
 
 **Feel free to fork, contribute, or reach out with ideas and improvements!**

@@ -1,9 +1,6 @@
 package com.example.newsreader.ui
 
-import android.net.NetworkCapabilities
-import android.net.NetworkRequest
-import android.util.Log.e
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,9 +12,6 @@ import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
-import androidx.compose.runtime.State
-import androidx.lifecycle.viewmodel.compose.viewModel
-import java.util.Date
 
 class ApiViewModel : ViewModel() {
     init {
@@ -81,7 +75,8 @@ class ApiViewModel : ViewModel() {
 
     suspend fun ApiCallList(
         useEverything: Boolean = false,
-        query: String? = null
+        query: String? = null,
+        articleNumber: Int? = null
     ): List<Article> {
         val client = OkHttpClient()
         val baseUrl = if(useEverything) {
@@ -103,7 +98,7 @@ class ApiViewModel : ViewModel() {
 
                 val list = mutableListOf<Article>()
 
-                newsResponse.articles.take(5).forEach { article ->
+                newsResponse.articles.take(articleNumber ?: 5).forEach { article ->
                     list.add(article)
                 }
                 list //returned
@@ -115,7 +110,7 @@ class ApiViewModel : ViewModel() {
     fun onEverything() {
         viewModelScope.launch{
             try {
-                val result = ApiCallList(useEverything = false)
+                val result = ApiCallList(useEverything = false, articleNumber = 15)
                 _articles.value = result
                 _latestArticle.value = result.firstOrNull()
                 _networkError.value = false

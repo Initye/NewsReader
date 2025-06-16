@@ -19,6 +19,7 @@ import com.example.newsreader.R
 import com.example.newsreader.ui.ApiViewModel
 import com.example.newsreader.ui.theme.getGeistFontFamily
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.ui.res.stringResource
 
 @Composable
 fun NoWifi(modifier: Modifier = Modifier) {
@@ -32,7 +33,7 @@ fun NoWifi(modifier: Modifier = Modifier) {
     ) {
         Column {
             Text(
-                text = "Couldn't get the data, please check your internet connection",
+                text = stringResource(id = R.string.no_wifi),
                 color = Color.Black,
                 fontSize = 12.sp,
                 textAlign = TextAlign.Center,

@@ -8,4 +8,5 @@
     <string name="no_title">No title</string>
     <string name="no_description">No description</string>
     <string name="no_content">No content</string>
+    <string name="no_wifi">"Couldn't get the data, please check your internet connection"</string>
 </resources>

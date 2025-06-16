@@ -1,7 +1,6 @@
 package com.example.newsreader.ui.pages
 
 import android.util.Log
-import android.util.Log.e
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,23 +9,21 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
-import com.example.newsreader.ui.ApiViewModel
-import com.example.newsreader.ui.elements.NewsElement
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil3.request.Disposable
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import com.example.newsreader.ui.ApiViewModel
 import com.example.newsreader.ui.elements.Header
 import com.example.newsreader.ui.elements.HeadlineElement
 import com.example.newsreader.ui.elements.LatestElement
 import com.example.newsreader.ui.elements.LatestHeadlineElement
 import com.example.newsreader.ui.elements.NavDrawer
+import com.example.newsreader.ui.elements.NewsElement
 import com.example.newsreader.ui.elements.NoWifi
 
 @Composable

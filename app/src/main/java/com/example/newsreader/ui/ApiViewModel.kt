@@ -81,7 +81,8 @@ class ApiViewModel : ViewModel() {
 
     suspend fun ApiCallList(
         useEverything: Boolean = false,
-        query: String? = null
+        query: String? = null,
+        articleNumber: Int? = null
     ): List<Article> {
         val client = OkHttpClient()
         val baseUrl = if(useEverything) {
@@ -103,7 +104,7 @@ class ApiViewModel : ViewModel() {
 
                 val list = mutableListOf<Article>()
 
-                newsResponse.articles.take(5).forEach { article ->
+                newsResponse.articles.take(articleNumber ?: 5).forEach { article ->
                     list.add(article)
                 }
                 list //returned
@@ -115,7 +116,7 @@ class ApiViewModel : ViewModel() {
     fun onEverything() {
         viewModelScope.launch{
             try {
-                val result = ApiCallList(useEverything = false)
+                val result = ApiCallList(useEverything = false, articleNumber = 15)
                 _articles.value = result
                 _latestArticle.value = result.firstOrNull()
                 _networkError.value = false

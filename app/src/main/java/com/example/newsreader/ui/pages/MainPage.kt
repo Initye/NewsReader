@@ -1,5 +1,6 @@
 package com.example.newsreader.ui.pages
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -55,6 +56,7 @@ import com.example.newsreader.ui.elements.NoWifi
 import com.example.newsreader.ui.theme.Headlines
 import com.example.newsreader.ui.theme.geistFontFamily
 import com.example.newsreader.ui.theme.getGeistFontFamily
+import kotlinx.coroutines.delay
 
 
 @Composable

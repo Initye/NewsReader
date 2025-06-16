@@ -126,8 +126,7 @@ class ApiViewModel : ViewModel() {
         }
     }
 
-
-    //Selecting article
+    //Selecting category
     val categoriesList = arrayListOf<String>(
         "Business", "Technology", "Health", "Science", "Politics",
         "Sports", "Entertainment", "World", "Travel", "Crime", "Culture",

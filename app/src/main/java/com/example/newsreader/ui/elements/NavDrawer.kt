@@ -73,13 +73,19 @@ fun NavDrawer(navController: NavController, modifier: Modifier = Modifier,viewMo
                     items(viewModel.categoriesList) { category ->
                         NavigationDrawerItem(
                             colors = NavigationDrawerItemDefaults.colors(
-                                unselectedContainerColor = Color.White
+                                unselectedContainerColor = Color.White,
+                                selectedTextColor = Color.Black,
+                                selectedContainerColor = Color.Transparent,
                             ),
                             label = { Text(category) },
-                            selected = false, //No need for that Drawer
+                            selected = viewModel.selectedCategory.value == category, //No need for that Drawer
                             onClick = {
-                                navController.navigate("categoryNews")
+                                scope.launch{
+                                    drawerState.close() //So that the drawer is not added to stack in navigation
+                                }
                                 viewModel.selectCategory(category)
+                                navController.navigate("categoryNews")
+
                             }
                         )
                     }

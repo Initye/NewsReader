@@ -2,14 +2,16 @@
 NewsReader is a modern Android news application built with Kotlin and Jetpack Compose. It allows users to browse the latest headlines and filter news by categories such as Technology, Business, Sports, and more.
 
 # ✨ Features
-## 🔥 View top headlines
+### 🔥 View top headlines
 
-## 🗂️ Browse news by category
+### 🗂️ Browse news by category
 
-## 🌐 Dynamic content fetched from a NewsAPI
+### 🌐 Dynamic content fetched from a NewsAPI
 
 # 📸 Screenshots
-(Add your screenshots here if you have any)
+![MainPage](https://github.com/user-attachments/assets/648a98bc-64bf-45e3-a136-75472ac5ae8a)
+![ArticleDetails](https://github.com/user-attachments/assets/f5312d43-0050-4ff2-a893-b22aae4ce544)
+![NavDrawer](https://github.com/user-attachments/assets/98c89f8f-9598-4e27-a399-7e29b86382f0)
 
 # 🚀 Installation (Android Studio)
 To run NewsReader on your Android device or emulator:
